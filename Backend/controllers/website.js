@@ -5,26 +5,30 @@ var cron = require('node-cron');
 
 
 var regexpression = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-
 exports.insertWebsite = async (req, res) => {
   let urlValidation = regexpression.test(req.body.url);
+  console.log(urlValidation)
 
   website.findOne({ website_url: req.body.url }).exec(async (error, result) => {
-    if (result){
+    if (result) {
       res.json({ status: false, message: "given url already exist", });
-    const info = req.body;
-    let obj = { website_url: info.url }
-    }else{
-    website.create(obj, (error, data) => {
-      if (error)
-        res.json({ status: false, message: "Something went wrong" });
-       if (data)
-        res.json({ status: true, message: "website created Successfully..!", data: data, });
-    });
-  }
+
+    } else {
+      const obj = { website_url: req.body.url }
+
+      website.create(obj, (error, data) => {
+        if (error)
+          res.json({ status: false, message: "Something went wrong" });
+        if (urlValidation == true) {
+        if (data)
+            res.json({ status: true, message: "website created Successfully..!", data: data, });
+        } else {
+          res.json({ status: false, message: "Invalid url pattern" })
+        }
+      });
+    }
   });
 };
-
 
 
 exports.getAllWebsites = (req, res) => {

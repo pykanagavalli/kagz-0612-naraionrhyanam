@@ -7,7 +7,6 @@ var cron = require('node-cron');
 var regexpression = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 exports.insertWebsite = async (req, res) => {
   let urlValidation = regexpression.test(req.body.url);
-  console.log(urlValidation)
 
   website.findOne({ website_url: req.body.url }).exec(async (error, result) => {
     if (result) {

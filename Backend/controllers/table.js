@@ -15,13 +15,14 @@ exports.insertTable = async (req, res) => {
         table.create(obj, (err, resp) => {
             console.log(err)
             if (err)
-                res.json({ status: false, message: "Table has not been updated" })
+                res.json({ status: false, message: "something went wrong" })
             else
-                res.json({ status: true, message: "Table has  been updated" })
+                res.json({ status: true, message: "Table has been created" })
         })
     }
     catch (e) {
         console.log(e)
+        res.json({ status: false, message: "something went wrong",data:e })
     }
 }
 

@@ -15,9 +15,9 @@ exports.insertTable = async (req, res) => {
         table.create(obj, (err, resp) => {
             console.log(err)
             if (err)
-                res.json({ status: false, message: "Table has not been updated" })
+                res.json({ status: false, message: "Table hasnot been updated" })
             else
-                res.json({ status: true, message: "Table has  been updated" })
+                res.json({ status: true, message: "Table has been updated" })
         })
     }
     catch (e) {
